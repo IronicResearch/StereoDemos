@@ -1,0 +1,55 @@
+###########################################################################
+#
+#                   Copyright (c) 1996 SciTech Software.
+#                           All rights reserved.
+#
+# Descripton:   Makefile for the OpenGL demos.
+#
+#############################################################################
+
+.IMPORT .IGNORE: GLUT_DLL GLDIRECT_STEREO
+
+# Compile against MGL OpenGL header files
+USE_MGL_OPENGL  := 1
+NO_PMLIB        := 1
+CFLAGS          += -D__USE_GLUTW32__
+
+# Do not use GLSwitch library macros if linking with dynamic GLUT DLL
+.IF $(GLUT_DLL)
+CFLAGS          += -DNO_GL_MACROS -DNO_GLU_MACROS -DNO_WGL_MACROS -D_DLL
+.ENDIF
+
+# Option for GLDirect dialog
+.IF $(GLDIRECT_STEREO)
+CFLAGS          += -DGLD_STEREO
+OBJECTS         += gldhelp$O
+.ELSE
+OBJECTS         =
+.ENDIF
+
+# Names of all object files built
+OBJECTS         = gm_main$O skyfly$O fly$O database$O perfdraw$O image$O random$O
+
+# Names of all executable files built
+EXEFILES        = skyfly$E
+
+# Names of all libraries to link with
+.IF $(GLUT_DLL)
+EXELIBS         = $(LL)glut$(LE) $(LL)opengl32$(LE) $(LL)glu32$(LE)
+.ELSE
+EXELIBS         = $(LL)glut$(LE) $(LL)glswitch$(LE)
+.ENDIF
+
+# Define the resource script to use
+.IF $(WIN32_GUI)
+RCFILE          = demo$R
+.ELSE
+RCFILE          =
+.ENDIF
+
+all: $(EXEFILES)
+
+skyfly$E:       $(OBJECTS) $(RCFILE)
+
+.INCLUDE: "$(SCITECH)/makedefs/common.mk"
+
