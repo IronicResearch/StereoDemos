@@ -2,9 +2,14 @@
 
 OBJS	= gm_main.o skyfly.o fly.o database.o perfdraw.o image.o random.o
 
-LIBS	= -lglut -lGL
+LIBS	= -lglut -lGL -framework glut -framework OpenGL
 
 EXES	= skyfly
+
+# force 32-bit compilation to avoid int/long mismatch
+CFLAGS	+= -m32
+
+LDFLAGS += -m32
 
 skyfly:	$(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o skyfly $(OBJS) $(LIBS)
