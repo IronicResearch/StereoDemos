@@ -2,7 +2,11 @@
 
 OBJS	= gm_main.o skyfly.o fly.o database.o perfdraw.o image.o random.o
 
-LIBS	= -lglut -lGL -framework glut -framework OpenGL
+ifeq ($(shell uname),Darwin)
+LIBS	= -framework glut -framework OpenGL
+else
+LIBS	= -lglut -lGL -lGLU -lm
+endif
 
 EXES	= skyfly
 
