@@ -54,7 +54,7 @@ static int buttons[BUTCOUNT] = { 0 };
 static int mouse_x, mouse_y;
 
 GLboolean show_timer = GL_FALSE;
-GLboolean fullscreen = 0; //GL_TRUE;
+GLboolean fullscreen = GL_TRUE;
 
 int Xgetbutton(int button)
 {
