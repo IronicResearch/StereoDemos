@@ -2,7 +2,11 @@
 
 OBJS	= slut.o
 
+ifeq ($(shell uname),Darwin)
+LIBS	= -framework glut -framework OpenGL
+else
 LIBS	= -lglut -lGL
+endif
 
 EXES	= gears morph steam logo test
 
@@ -26,4 +30,4 @@ test:	$(OBJS) test.o
 
 .PHONY:	clean
 clean: 
-	rm -f $(OBJS) $(EXES)
+	rm -f $(OBJS) $(EXES) *.o
