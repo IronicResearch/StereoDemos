@@ -5,7 +5,7 @@ OBJS	= slut.o
 ifeq ($(shell uname),Darwin)
 LIBS	= -framework glut -framework OpenGL
 else
-LIBS	= -lglut -lGL
+LIBS	= -lglut -lGL -lGLU -lm
 endif
 
 EXES	= gears morph steam logo test
