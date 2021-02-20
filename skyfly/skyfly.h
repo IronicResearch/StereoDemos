@@ -14,7 +14,7 @@ extern  PGLBINDTEXTURE pglBindTexture;
 #endif
 
 /* Define STEREO for stereo display support; otherwise default display. */
-#undef STEREO
+#define STEREO
 
 /* buttons */
 #define ESCKEY          0
