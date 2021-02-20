@@ -30,8 +30,11 @@ static char sccsid[] = "@(#)random.c    5.5 (Berkeley) 7/6/88";
 #include <stdio.h>
 #include <stdlib.h>     /* for prototyping */
 
-#undef random
-long random(void);
+#if __DARWIN_UNIX03
+typedef int     LONG;
+#else
+typedef long    LONG;
+#endif
 
 /*
  * random.c:
@@ -132,7 +135,7 @@ static  const int       seps[ MAX_TYPES ]       = { SEP_0, SEP_1, SEP_2,
  *      MAX_TYPES*(rptr - state) + TYPE_3 == TYPE_3.
  */
 
-static  long            randtbl[ DEG_3 + 1 ]    = { TYPE_3,
+static  LONG            randtbl[ DEG_3 + 1 ]    = { TYPE_3,
                             0x9a319039, 0x32d9c024, 0x9b663182, 0x5da1f342, 
                             0xde3b81e0, 0xdf0a6fb5, 0xf103bc02, 0x48f340fb, 
                             0x7449e56b, 0xbeb1dbb0, 0xab5c5918, 0x946554fd, 
@@ -154,8 +157,8 @@ static  long            randtbl[ DEG_3 + 1 ]    = { TYPE_3,
  * to point to randtbl[1] (as explained below).
  */
 
-static  long            *fptr                   = &randtbl[ SEP_3 + 1 ];
-static  long            *rptr                   = &randtbl[ 1 ];
+static  LONG            *fptr                   = &randtbl[ SEP_3 + 1 ];
+static  LONG            *rptr                   = &randtbl[ 1 ];
 
 
 
@@ -171,13 +174,13 @@ static  long            *rptr                   = &randtbl[ 1 ];
  * the front and rear pointers have wrapped.
  */
 
-static  long            *state                  = &randtbl[ 1 ];
+static  LONG            *state                  = &randtbl[ 1 ];
 
 static  int             rand_type               = TYPE_3;
 static  int             rand_deg                = DEG_3;
 static  int             rand_sep                = SEP_3;
 
-static  long            *end_ptr                = &randtbl[ DEG_3 + 1 ];
+static  LONG            *end_ptr                = &randtbl[ DEG_3 + 1 ];
 
 
 
@@ -194,23 +197,28 @@ static  long            *end_ptr                = &randtbl[ DEG_3 + 1 ];
  * values produced by this routine.
  */
 
+#if __DARWIN_UNIX03
 void
 srandom( unsigned x )
+#else
+void
+srandom( unsigned long x )
+#endif
 /*    unsigned            x; */
 {
         register  int           i;
 
         if(  rand_type  ==  TYPE_0  )  {
-            state[ 0 ] = (long) x;
+            state[ 0 ] = (LONG) x;
         }
         else  {
-            state[ 0 ] = (long) x;
+            state[ 0 ] = (LONG) x;
             for( i = 1; i < rand_deg; i++ )  {
                 state[i] = 1103515245*state[i - 1] + 12345;
             }
             fptr = &state[ rand_sep ];
             rptr = &state[ 0 ];
-            for( i = 0; i < 10*rand_deg; i++ )  random();
+            for( i = 0; i < 10*rand_deg; i++ ) random();
         }
 }
 
@@ -232,8 +240,13 @@ srandom( unsigned x )
  * Returns a pointer to the old state.
  */
 
+#if __DARWIN_UNIX03
 char  *
 initstate( unsigned seed, char * arg_state, size_t n )
+#else
+char  *
+initstate( unsigned long seed, char * arg_state, size_t n )
+#endif
 /*    unsigned            seed;                   /* seed for R. N. G. */
 /*    char                *arg_state;             /* pointer to state array */
 /*    size_t              n;                      /* # bytes of state info */
@@ -277,7 +290,7 @@ initstate( unsigned seed, char * arg_state, size_t n )
                 }
             }
         }
-        state = &(  ( (long *)arg_state )[1]  );        /* first location */
+        state = &(  ( (LONG *)arg_state )[1]  );        /* first location */
         end_ptr = &state[ rand_deg ];   /* must set end_ptr before srandom */
         srandom( seed );
         if(  rand_type  ==  TYPE_0  )  state[ -1 ] = rand_type;
@@ -303,7 +316,7 @@ char  *
 setstate( const char * arg_state )
 /*    const char          *arg_state; */
 {
-        register  long          *new_state      = (long *)arg_state;
+        register  LONG          *new_state      = (LONG *)arg_state;
         register  int           type            = (int)new_state[0]%MAX_TYPES;
         register  int           rear            = (int)new_state[0]/MAX_TYPES;
         char                    *ostate         = (char *)( &state[ -1 ] );
@@ -350,10 +363,15 @@ setstate( const char * arg_state )
  * Returns a 31-bit random number.
  */
 
+#if __DARWIN_UNIX03
 long
 random(void)
+#else
+LONG
+random(void)
+#endif
 {
-        long            i;
+        LONG            i;
         
         if(  rand_type  ==  TYPE_0  )  {
             i = state[0] = ( state[0]*1103515245 + 12345 )&0x7fffffff;

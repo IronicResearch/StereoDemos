@@ -40,9 +40,6 @@ extern  PGLBINDTEXTURE pglBindTexture;
 #define MOUSEY          1
 #define VALCOUNT        2
 
-#undef random
-extern long random(void);
-
 
 #undef	MIN
 #undef	MAX
@@ -50,7 +47,9 @@ extern long random(void);
 #define MAX(a,b)        (((a)>(b)) ? (a) : (b))
 #define RAD_TO_DEG                      (180/M_PI)
 #define IRND(x) ((int)((float)(x) * ((float)random()/(float)0x7fffffff)))
+#ifndef M_PI
 #define M_PI            3.14159265358979323846
+#endif
 
 #define NUM_PLANES                      20
 #define GRID_RANGE                      200             /* 200 kilometers */
@@ -102,16 +101,16 @@ extern long random(void);
 */
 typedef struct perfobj_vert_t {
         float vert[3];
-        unsigned long vpad;
+        unsigned int vpad;
 
         float normal[3];
-        unsigned long npad;
+        unsigned int npad;
 
         float color[3];
-        unsigned long cpad;
+        unsigned int cpad;
 
         float texture[2];
-        unsigned long tpad[2]; 
+        unsigned int tpad[2]; 
 } perfobj_vert_t;
 
 /*

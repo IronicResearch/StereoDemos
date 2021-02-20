@@ -505,7 +505,7 @@ static void put_cell(float *source, perfobj_t *pobj)
 	/* For all tmesh strips in cell */
 	for (i = 0; i < CellDim; i++) {
 		*flagsptr++ = PD_DRAW_TERRAIN_CELL;
-		*flagsptr++ = (unsigned long) pdataptr;
+		*flagsptr++ = (unsigned int)pdataptr;
 
 		/* For all verts in tmesh strip */
 		for (j = 0; j < (CellDim + 1) * 2; j++) {
