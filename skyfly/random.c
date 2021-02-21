@@ -33,7 +33,7 @@ static char sccsid[] = "@(#)random.c    5.5 (Berkeley) 7/6/88";
 #if __DARWIN_UNIX03
 typedef int     LONG;
 #else
-typedef long    LONG;
+typedef int     LONG;
 #endif
 
 /*
@@ -202,7 +202,7 @@ void
 srandom( unsigned x )
 #else
 void
-srandom( unsigned long x )
+_srandom( unsigned int x )
 #endif
 /*    unsigned            x; */
 {
@@ -245,7 +245,7 @@ char  *
 initstate( unsigned seed, char * arg_state, size_t n )
 #else
 char  *
-initstate( unsigned long seed, char * arg_state, size_t n )
+_initstate( unsigned int seed, char * arg_state, size_t n )
 #endif
 /*    unsigned            seed;                   /* seed for R. N. G. */
 /*    char                *arg_state;             /* pointer to state array */
@@ -312,8 +312,13 @@ initstate( unsigned long seed, char * arg_state, size_t n )
  * Returns a pointer to the old state information.
  */
 
+#if __DARWIN_UNIX03
 char  *
 setstate( const char * arg_state )
+#else
+char  *
+_setstate( char * arg_state )
+#endif
 /*    const char          *arg_state; */
 {
         register  LONG          *new_state      = (LONG *)arg_state;
@@ -367,8 +372,8 @@ setstate( const char * arg_state )
 long
 random(void)
 #else
-LONG
-random(void)
+long int
+_random(void)
 #endif
 {
         LONG            i;
