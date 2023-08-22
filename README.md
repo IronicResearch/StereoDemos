@@ -21,13 +21,39 @@ corresponding to the left or right eye viewpoint. OpenGL libraries internally ca
 viewing matrix as a single concatenated 4x4 matrix, so the two x-axis shifts ultimately
 affect the 3rd and 4th elements of the 4x4 viewing matrix. Then an optimized variation
 of the 2-pass stereo rendering loop could take advantage of cached matrix elements
-via `glLoadMatrix` calls.
+via `glLoadMatrix()` calls.
+
+Simplified 2-pass rendering loop unrolled for explanation:
+
+```
+	glDrawBuffer(GL_BACK_LEFT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glFrustum(left-dxAdjust, right-dxAdjust, top, bottom, near, far);
+	glTranslatef(dxViewpt, 0.0f, 0.0f);
+	glMatrixMode(GL_MODELVIEW);
+	// render scene for left eye view
+	// ...
+	glFlush();
+
+	glDrawBuffer(GL_BACK_RIGHT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glFrustum(left+dxAdjust, right+dxAdjust, top, bottom, near, far);
+	glTranslatef(-dxViewpt, 0.0f, 0.0f);
+	glMatrixMode(GL_MODELVIEW);
+	// render scene for right eye view
+	// ...
+	glFlush();
+
+	glutSwapBuffers();
+```
 
 The *Gears* demo by Brian Paul is commonly distributed as part of the Mesa library,
 an OpenGL-compatible library usually installed on Linux X11 desktops.
 
 The *Skyfly* demo by Mark Kilgard is commonly found in GLUT distributions, as
-described in the *GLUT Programmer's Guide* (also known as "The Green Book").
+described in "The Green Book", *OpenGL Programming for the X Window System*.
 
 Other demos are usually found with GLUT distributions as part of "The Red Book"
 examples (referring to the *OpenGL Programmer's Guide*).
