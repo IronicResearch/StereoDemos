@@ -393,7 +393,7 @@ main(int argc, char **argv)
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
 #endif
   if (fullscreen) {
-	  glutGameModeString("640x480:16@120");
+	  glutGameModeString("800x600:32@120");
 	  glutEnterGameMode();
   } else {
 	  glutInitWindowSize(400, 400);
