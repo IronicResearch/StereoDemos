@@ -772,7 +772,7 @@ main(int argc, char **argv)
 
 #ifdef FULLSCREEN
   /* Use GLUT Game mode to switch to fullscreen resolution */
-  glutGameModeString("640x480:32@120");
+  glutGameModeString("800x600:32@120");
   glutEnterGameMode();
 #else
   glutInitWindowSize(400, 400);

@@ -104,7 +104,7 @@ void keyboard(unsigned char key, int x, int y)
 
 int main(int argc, char *argv[])
 {
-    char displaymode[80] = "640x480:32@120";
+    char displaymode[80] = "800x600:32@120";
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_STEREO);

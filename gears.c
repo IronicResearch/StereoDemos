@@ -438,7 +438,7 @@ main(int argc, char *argv[])
 #endif
 
 #ifdef FULLSCREEN
-  glutGameModeString("640x480:32@120");
+  glutGameModeString("800x600:32@120");
   glutEnterGameMode();
 #else
   glutCreateWindow("Gears");

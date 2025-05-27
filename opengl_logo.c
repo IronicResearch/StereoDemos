@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
 #endif
 #ifdef FULLSCREEN
-        glutGameModeString("640x480:32@120");
+        glutGameModeString("800x600:32@120");
         glutEnterGameMode();
 #else
         glutInitWindowPosition(200, 0);

@@ -105,7 +105,7 @@ void SLUT_UpdateStereoSignal(void)
     }
 
     /* Apple stereo example saves color state info */
-    glGetFloatv(GL_COLOR, &rgba[0]);
+    glGetFloatv(GL_CURRENT_COLOR, &rgba[0]);
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     glDisable(GL_COLOR_LOGIC_OP);
     glDisable(GL_COLOR_MATERIAL);
