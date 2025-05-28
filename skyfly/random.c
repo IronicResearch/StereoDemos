@@ -15,13 +15,6 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#ifdef __STDC__
-        #pragma weak initstate = _initstate
-        #pragma weak random    = _random
-        #pragma weak setstate  = _setstate
-        #pragma weak srandom   = _srandom
-#endif
-/*#include "synonyms.h"*/
 
 #if defined(LIBC_SCCS) && !defined(lint)
 static char sccsid[] = "@(#)random.c    5.5 (Berkeley) 7/6/88";
@@ -30,11 +23,7 @@ static char sccsid[] = "@(#)random.c    5.5 (Berkeley) 7/6/88";
 #include <stdio.h>
 #include <stdlib.h>     /* for prototyping */
 
-#if __DARWIN_UNIX03
 typedef int     LONG;
-#else
-typedef int     LONG;
-#endif
 
 /*
  * random.c:
@@ -197,13 +186,8 @@ static  LONG            *end_ptr                = &randtbl[ DEG_3 + 1 ];
  * values produced by this routine.
  */
 
-#if __DARWIN_UNIX03
 void
-srandom( unsigned x )
-#else
-void
-_srandom( unsigned int x )
-#endif
+srandom( unsigned int x )
 /*    unsigned            x; */
 {
         register  int           i;
@@ -240,13 +224,8 @@ _srandom( unsigned int x )
  * Returns a pointer to the old state.
  */
 
-#if __DARWIN_UNIX03
 char  *
-initstate( unsigned seed, char * arg_state, size_t n )
-#else
-char  *
-_initstate( unsigned int seed, char * arg_state, size_t n )
-#endif
+initstate( unsigned int seed, char * arg_state, size_t n )
 /*    unsigned            seed;                   /* seed for R. N. G. */
 /*    char                *arg_state;             /* pointer to state array */
 /*    size_t              n;                      /* # bytes of state info */
@@ -317,7 +296,7 @@ char  *
 setstate( const char * arg_state )
 #else
 char  *
-_setstate( char * arg_state )
+setstate( char * arg_state )
 #endif
 /*    const char          *arg_state; */
 {
@@ -368,13 +347,8 @@ _setstate( char * arg_state )
  * Returns a 31-bit random number.
  */
 
-#if __DARWIN_UNIX03
-long
-random(void)
-#else
 long int
-_random(void)
-#endif
+random(void)
 {
         LONG            i;
         
