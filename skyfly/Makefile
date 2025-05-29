@@ -11,9 +11,9 @@ endif
 EXES	= skyfly
 
 # force 32-bit compilation to avoid int/long mismatch
-CFLAGS	+= -m32
+CFLAGS	+= -Wno-pointer-to-int-cast
 
-LDFLAGS += -m32
+LDFLAGS += 
 
 skyfly:	$(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o skyfly $(OBJS) $(LIBS)

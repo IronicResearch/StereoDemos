@@ -45,12 +45,14 @@ extern  PGLBINDTEXTURE pglBindTexture;
 #undef	MAX
 #define MIN(a,b)        (((a)<(b)) ? (a) : (b))
 #define MAX(a,b)        (((a)>(b)) ? (a) : (b))
-#define RAD_TO_DEG                      (180/M_PI)
-#define IRND(x) ((int)((float)(x) * ((float)random()/(float)0x7fffffff)))
 #ifndef M_PI
 #define M_PI            3.14159265358979323846
 #endif
 
+extern  int _random(void);
+#define IRND(x) ((int)((float)(x) * ((float)_random()/(float)0x7fffffff)))
+
+#define RAD_TO_DEG                      (180/M_PI)
 #define NUM_PLANES                      20
 #define GRID_RANGE                      200             /* 200 kilometers */
 #define FOV                             (M_PI / 4.)     /* 45 degrees */

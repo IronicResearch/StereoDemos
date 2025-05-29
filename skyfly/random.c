@@ -236,7 +236,7 @@ initstate( unsigned int seed, char * arg_state, size_t n )
         else  state[ -1 ] = MAX_TYPES*(rptr - state) + rand_type;
         if(  n  <  BREAK_1  )  {
             if(  n  <  BREAK_0  )  {
-                fprintf( stderr, "initstate: not enough state (%d bytes) with which to do jack; ignored.\n", n );
+                fprintf( stderr, "initstate: not enough state (%d bytes) with which to do jack; ignored.\n", (int)n );
                 return 0;
             }
             rand_type = TYPE_0;
@@ -347,10 +347,10 @@ setstate( char * arg_state )
  * Returns a 31-bit random number.
  */
 
-long int
-random(void)
+int
+_random(void)
 {
-        LONG            i;
+        int             i;
         
         if(  rand_type  ==  TYPE_0  )  {
             i = state[0] = ( state[0]*1103515245 + 12345 )&0x7fffffff;
