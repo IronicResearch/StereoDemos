@@ -38,7 +38,7 @@
 #define ERR_SYSERR                      0x4
 
 #define AMALLOC(a, type, num, func)     {                     \
-	if((int)(a = (type*)malloc(sizeof(type)*(num))) <= 0)     \
+	if((a = (type*)malloc(sizeof(type)*(num))) == NULL)           \
 		err_msg(ERR_FATAL, func, "amalloc failed");           \
 }
 
