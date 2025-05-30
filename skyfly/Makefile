@@ -11,7 +11,7 @@ endif
 EXES	= skyfly
 
 # force 32-bit compilation to avoid int/long mismatch
-CFLAGS	+= -Wno-pointer-to-int-cast
+CFLAGS	+= #-Wno-pointer-to-int-cast
 
 LDFLAGS += 
 

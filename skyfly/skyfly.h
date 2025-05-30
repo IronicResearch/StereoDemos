@@ -122,7 +122,7 @@ typedef struct perfobj_vert_t {
  * perfobj_vert_t's or other floating point data.
 */
 typedef struct perfobj_t {
-        unsigned int    *flags;
+        unsigned long   *flags;
         float           *vdata;
 } perfobj_t;
 
@@ -150,14 +150,14 @@ typedef struct shared_data_struct {
         perfobj_t       clouds_obj;
 
         /* flags */
-        unsigned int    paper_plane_flags[2];
-        unsigned int    paper_plane_start_flags[3];
-        unsigned int    paper_plane_2ndpass_flags[3];
-        unsigned int    paper_plane_end_flags[3];
-        unsigned int    terrain_texture_flags[3];
-        unsigned int    **terrain_cell_flags;
-        unsigned int    clouds_texture_flags[3];
-        unsigned int    clouds_flags[2];
+        unsigned long   paper_plane_flags[2];
+        unsigned long   paper_plane_start_flags[3];
+        unsigned long   paper_plane_2ndpass_flags[3];
+        unsigned long   paper_plane_end_flags[3];
+        unsigned long   terrain_texture_flags[3];
+        unsigned long   **terrain_cell_flags;
+        unsigned long   clouds_texture_flags[3];
+        unsigned long   clouds_flags[2];
 
         /* data */
         perfobj_vert_t  paper_plane_verts[22];

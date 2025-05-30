@@ -36,7 +36,7 @@ void drawperfobj(perfobj_t *perfobj)
     float     *vdata_ptr =(float *) perfobj->vdata;
     extern void texenv(int), lightpos(void);
 
-    unsigned int *flagsptr = perfobj->flags;
+    unsigned long *flagsptr = perfobj->flags;
     float     *dp;
 
     for (;;) {
@@ -127,7 +127,7 @@ void drawperfobj(perfobj_t *perfobj)
 			return;
 
 		default:
-			fprintf(stderr, "Bad PD primitive %d\n", *flagsptr);
+			fprintf(stderr, "Bad PD primitive %ld\n", *flagsptr);
 			flagsptr++;
 			break;
 		}

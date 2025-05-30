@@ -98,7 +98,7 @@ static void put_paper_plane(float *source, perfobj_t *pobj)
 {
     int             j;
     perfobj_vert_t *pdataptr =(perfobj_vert_t *) pobj->vdata;
-    unsigned int  *flagsptr = pobj->flags;
+    unsigned long  *flagsptr = pobj->flags;
     float          *sp = source;
 
     *flagsptr++ = PD_DRAW_PAPER_PLANE;
@@ -116,7 +116,7 @@ static void put_paper_plane(float *source, perfobj_t *pobj)
 
 static void put_texture_bind(int bind, perfobj_t *pobj)
 {
-	unsigned int  *flagsptr = pobj->flags;
+	unsigned long *flagsptr = pobj->flags;
 
 	*flagsptr++ = PD_TEXTURE_BIND;
 	*flagsptr++ = bind;
@@ -499,13 +499,13 @@ static void put_cell(float *source, perfobj_t *pobj)
 {
 	int             i, j;
 	perfobj_vert_t *pdataptr =(perfobj_vert_t *) pobj->vdata;
-	unsigned int  *flagsptr = pobj->flags;
+	unsigned long  *flagsptr = pobj->flags;
 	float          *sp = source;
 
 	/* For all tmesh strips in cell */
 	for (i = 0; i < CellDim; i++) {
 		*flagsptr++ = PD_DRAW_TERRAIN_CELL;
-		*flagsptr++ = (unsigned int)pdataptr;
+		*flagsptr++ = (unsigned long)pdataptr; // FIXME
 
 		/* For all verts in tmesh strip */
 		for (j = 0; j < (CellDim + 1) * 2; j++) {

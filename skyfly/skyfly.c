@@ -68,8 +68,8 @@ typedef struct buffered_data_struct {
         perfobj_t       viewer_pos_obj;
 
         /* flags */
-        unsigned int   paper_plane_pos_flags[2];
-        unsigned int   viewer_pos_flags[2];
+        unsigned long  paper_plane_pos_flags[2];
+        unsigned long  viewer_pos_flags[2];
 
         /* data */
         float  paper_plane_position[NUM_PLANES][6];
@@ -202,7 +202,7 @@ void cull_proc(void)
     static struct cull {
         perfobj_t       **cells;
         perfobj_t       viewer_pos_obj[2];
-        unsigned int   viewer_pos_flags[4];
+        unsigned long   viewer_pos_flags[4];
         float           viewer_position[2][4];
         float           fovx, side, farr, epsilon, plane_epsilon;
     } cull;
@@ -412,14 +412,14 @@ void init_misc(void)
 void init_shmem(void)
 {
 	int			   i;
-    unsigned int  *flagsptr;
+    unsigned long  *flagsptr;
     perfobj_vert_t *vertsptr;
     int             nflags, nverts;
 
     AMALLOC(SharedData, shared_data, 1, "init_shmem");
     AMALLOC(SharedData->terrain_cells, perfobj_t,
             NumCells * NumCells, "init_shmem");
-    AMALLOC(SharedData->terrain_cell_flags, unsigned int *,
+    AMALLOC(SharedData->terrain_cell_flags, unsigned long *,
             NumCells * NumCells, "init_shmem");
     AMALLOC(SharedData->terrain_cell_verts, perfobj_vert_t *,
             NumCells * NumCells, "init_shmem");
@@ -429,7 +429,7 @@ void init_shmem(void)
      * to improve data locality and consequently, cache hits 
      */
     nflags = 2 * CellDim + 1;
-	AMALLOC(flagsptr, unsigned int, nflags * NumCells * NumCells, "init_shmem");
+	AMALLOC(flagsptr, unsigned long, nflags * NumCells * NumCells, "init_shmem");
 	nverts = (CellDim + 1) * 2 * CellDim;
 	AMALLOC(vertsptr, perfobj_vert_t, nverts * NumCells * NumCells, "init_shmem");
 
